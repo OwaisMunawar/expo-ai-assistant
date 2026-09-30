@@ -1,12 +1,18 @@
 version: 2
 updates:
+  # Expo pins react, react-native and its modules to the SDK, so those move
+  # together via `npx expo install --fix` on SDK upgrades. Dependabot handles
+  # the AI SDK and tooling that sit outside the SDK.
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    allow:
+      - dependency-name: 'ai'
+      - dependency-name: '@ai-sdk/*'
+      - dependency-name: 'zod'
+      - dependency-name: 'prettier'
     groups:
-      expo:
-        patterns: ['expo*', '@expo/*', 'react-native*']
       ai-sdk:
         patterns: ['ai', '@ai-sdk/*']
   - package-ecosystem: github-actions
