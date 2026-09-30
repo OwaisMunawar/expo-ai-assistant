@@ -1,0 +1,22 @@
+# Runs against a dev or preview build in demo mode (no API key needed).
+# maestro test .maestro/chat-happy-path.yaml
+appId: com.owaismunawar.aiassistant
+---
+- launchApp:
+    clearState: true
+- assertVisible: 'Ask anything'
+- tapOn: 'Explain simply'
+- extendedWaitUntil:
+    visible: 'Demo mode'
+    timeout: 15000
+- assertVisible: 'Copy reply'
+- tapOn: 'Model: Claude Sonnet 5.5. Change model'
+- tapOn: 'GPT-5.5'
+- tapOn: 'Message input'
+- inputText: 'Give me three tips'
+- tapOn: 'Send message'
+- extendedWaitUntil:
+    visible: 'GPT-5.5'
+    timeout: 15000
+- back
+- assertVisible: 'Explain how on-device machine learning works.*'
