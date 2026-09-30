@@ -43,7 +43,6 @@ example
 /android
 
 # editor / tooling
-.claude/
 .vscode/
 .idea/
 coverage/
