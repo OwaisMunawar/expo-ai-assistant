@@ -47,15 +47,15 @@ The code is organised by feature (`src/features/chat`, `src/features/conversatio
 
 ## Tech stack
 
-| Area | Choice |
-| --- | --- |
-| App | Expo SDK 57, React Native 0.86, React 19, Expo Router (typed routes), React Compiler |
-| AI | AI SDK v7 (`ai`, `@ai-sdk/react`), Vercel AI Gateway |
-| Server | Expo API routes, deployable with EAS Hosting |
-| Validation | zod |
-| Storage | AsyncStorage with `useSyncExternalStore` |
+| Area        | Choice                                                                                          |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| App         | Expo SDK 57, React Native 0.86, React 19, Expo Router (typed routes), React Compiler            |
+| AI          | AI SDK v7 (`ai`, `@ai-sdk/react`), Vercel AI Gateway                                            |
+| Server      | Expo API routes, deployable with EAS Hosting                                                    |
+| Validation  | zod                                                                                             |
+| Storage     | AsyncStorage with `useSyncExternalStore`                                                        |
 | Native APIs | `expo-speech`, `expo-clipboard`, `expo-haptics`, `expo-symbols` (SF Symbols / Material Symbols) |
-| Quality | TypeScript strict, ESLint, Prettier, Jest (`jest-expo`), Maestro, GitHub Actions, Dependabot |
+| Quality     | TypeScript strict, ESLint, Prettier, Jest (`jest-expo`), Maestro, GitHub Actions, Dependabot    |
 
 ## Quick start
 
@@ -78,14 +78,14 @@ Set `AI_GATEWAY_API_KEY` in the EAS Hosting environment. Native builds read the 
 
 ## Quality
 
-| Check | Command |
-| --- | --- |
-| Format | `npm run format:check` |
-| Lint, including the client/server import boundary | `npm run lint` |
-| Types (strict, `noUncheckedIndexedAccess`) | `npm run typecheck` |
-| Unit tests with coverage thresholds | `npm test -- --coverage` |
-| Dependency health | `npx expo-doctor` |
-| End-to-end (dev build, demo mode) | `npm run e2e` |
+| Check                                             | Command                  |
+| ------------------------------------------------- | ------------------------ |
+| Format                                            | `npm run format:check`   |
+| Lint, including the client/server import boundary | `npm run lint`           |
+| Types (strict, `noUncheckedIndexedAccess`)        | `npm run typecheck`      |
+| Unit tests with coverage thresholds               | `npm test -- --coverage` |
+| Dependency health                                 | `npx expo-doctor`        |
+| End-to-end (dev build, demo mode)                 | `npm run e2e`            |
 
 CI runs every check except end-to-end on each push, then exports the web app and API routes.
 

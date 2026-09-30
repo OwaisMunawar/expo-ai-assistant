@@ -53,13 +53,13 @@ Code is grouped by feature, not by file type, so a feature can be read, changed 
 
 Anything shipped in a mobile binary can be extracted. The client sends messages and a model ID to `/api/chat`; the route holds `AI_GATEWAY_API_KEY`. Expo API routes let the server live in the same repo and deploy with `eas deploy`, so there is no separate backend to maintain.
 
-*Rejected:* calling providers directly from the app with a key in `EXPO_PUBLIC_*`. That is simple but leaks the key to anyone who unzips the IPA or APK.
+_Rejected:_ calling providers directly from the app with a key in `EXPO_PUBLIC_*`. That is simple but leaks the key to anyone who unzips the IPA or APK.
 
 ### 2. One gateway key instead of one key per provider
 
 Model IDs are gateway IDs (`anthropic/claude-sonnet-5.5`). Adding a provider is a one-line change to `src/shared/models.ts`, and billing and rate limits are in one place.
 
-*Rejected:* wiring `@ai-sdk/openai`, `@ai-sdk/anthropic` and `@ai-sdk/google` separately. That is more configuration and more secrets, for no user-facing benefit. It is easy to switch back: `streamText` takes any `LanguageModel`.
+_Rejected:_ wiring `@ai-sdk/openai`, `@ai-sdk/anthropic` and `@ai-sdk/google` separately. That is more configuration and more secrets, for no user-facing benefit. It is easy to switch back: `streamText` takes any `LanguageModel`.
 
 ### 3. The server does not trust the client
 
@@ -84,7 +84,7 @@ React Native's built-in `fetch` buffers the whole response. `expo/fetch` exposes
 
 Conversations are saved to AsyncStorage under a single versioned key (`conversations:v1`). React reads them through `useSyncExternalStore`, which keeps renders consistent without a state library. The dataset is text only and small, so a single key keeps writes atomic and migrations trivial.
 
-*Rejected:* SQLite. It's worth it once there is search or pagination (see the roadmap), but not before. Also rejected: Zustand or Redux, because one store with three operations doesn't need a library.
+_Rejected:_ SQLite. It's worth it once there is search or pagination (see the roadmap), but not before. Also rejected: Zustand or Redux, because one store with three operations doesn't need a library.
 
 ### 7. A small, stream-tolerant markdown renderer
 
@@ -92,12 +92,12 @@ LLM output is mostly paragraphs, lists and code. `src/features/chat/lib/markdown
 
 ## Quality gates
 
-| Gate | Tool | Where |
-| --- | --- | --- |
-| Formatting | Prettier | CI `format:check` |
-| Lint and import boundaries | ESLint (`eslint-config-expo`) plus a `no-restricted-imports` rule that blocks `@/server/*` in client code | CI `lint` |
-| Types | TypeScript strict with `noUncheckedIndexedAccess` | CI `typecheck` |
-| Unit tests | Jest (`jest-expo`) with coverage thresholds of 90% lines | CI `test --coverage` |
-| Dependencies | `expo-doctor`, Dependabot (grouped Expo and AI SDK updates) | CI, weekly |
-| Web and server bundle | `expo export --platform web` | CI |
-| End to end | Maestro flow in `.maestro/`, run against a dev build | Local / EAS |
+| Gate                       | Tool                                                                                                      | Where                |
+| -------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------- |
+| Formatting                 | Prettier                                                                                                  | CI `format:check`    |
+| Lint and import boundaries | ESLint (`eslint-config-expo`) plus a `no-restricted-imports` rule that blocks `@/server/*` in client code | CI `lint`            |
+| Types                      | TypeScript strict with `noUncheckedIndexedAccess`                                                         | CI `typecheck`       |
+| Unit tests                 | Jest (`jest-expo`) with coverage thresholds of 90% lines                                                  | CI `test --coverage` |
+| Dependencies               | `expo-doctor`, Dependabot (grouped Expo and AI SDK updates)                                               | CI, weekly           |
+| Web and server bundle      | `expo export --platform web`                                                                              | CI                   |
+| End to end                 | Maestro flow in `.maestro/`, run against a dev build                                                      | Local / EAS          |
